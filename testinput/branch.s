@@ -1,4 +1,7 @@
+mov r0,#4
+
 B MAIN
+
 BCC MAIN
 BEQ MAIN
 BL TEST

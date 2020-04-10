@@ -88,6 +88,30 @@ public class ArmParserBaseListener implements ArmParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterLabelReference(ArmParser.LabelReferenceContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLabelReference(ArmParser.LabelReferenceContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLabel(ArmParser.LabelContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLabel(ArmParser.LabelContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterImmediate(ArmParser.ImmediateContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -311,18 +335,6 @@ public class ArmParserBaseListener implements ArmParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitPostIndexedAddressing(ArmParser.PostIndexedAddressingContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterLabelReference(ArmParser.LabelReferenceContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitLabelReference(ArmParser.LabelReferenceContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

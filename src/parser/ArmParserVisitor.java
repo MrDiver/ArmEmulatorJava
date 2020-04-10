@@ -47,6 +47,18 @@ public interface ArmParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitReg(ArmParser.RegContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link ArmParser#labelReference}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLabelReference(ArmParser.LabelReferenceContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ArmParser#label}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLabel(ArmParser.LabelContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link ArmParser#immediate}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -176,10 +188,4 @@ public interface ArmParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitPostIndexedAddressing(ArmParser.PostIndexedAddressingContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link ArmParser#labelReference}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitLabelReference(ArmParser.LabelReferenceContext ctx);
 }
