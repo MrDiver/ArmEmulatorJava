@@ -1,78 +1,50 @@
 lexer grammar ArmLexer;
 
-
-// Conditions
-EQ : E Q;
-NE : N E;
-CS : C S;
-CC : C C;
-MI : M I;
-PL : P L;
-VS : V S;
-VC : V C;
-HI : H I;
-LS : L S;
-GE : G E;
-LT : L T;
-GT : G T;
-LE : L E;
-AL : A L;
-UPDATEFLAG: S;
-
-
 //Data Processing Operations
-AND: A N D;
-EOR: E O R;
-SUB: S U B;
-RSB: R S B;
-ADD: A D D;
-ADC: A D C;
-SBC: S B C;
-RSC: R S C;
-TST: T S T;
-TEQ: T E Q;
-CMP: C M P;
-CMN: C M P;
-ORR: O R R;
-MOV: M O V;
-BIC: B I C;
-MVN: M V N;
+AND: A N D -> pushMode(POSTCOM);
+EOR: E O R -> pushMode(POSTCOM);
+SUB: S U B -> pushMode(POSTCOM);
+RSB: R S B -> pushMode(POSTCOM);
+ADD: A D D -> pushMode(POSTCOM);
+ADC: A D C -> pushMode(POSTCOM);
+SBC: S B C -> pushMode(POSTCOM);
+RSC: R S C -> pushMode(POSTCOM);
+TST: T S T -> pushMode(POSTCOM);
+TEQ: T E Q -> pushMode(POSTCOM);
+CMP: C M P -> pushMode(POSTCOM);
+CMN: C M P -> pushMode(POSTCOM);
+ORR: O R R -> pushMode(POSTCOM);
+MOV: M O V -> pushMode(POSTCOM);
+BIC: B I C -> pushMode(POSTCOM);
+MVN: M V N -> pushMode(POSTCOM);
 
 //Multiplication Instructions
 //normal
-MUL : M U L;
-MLA : M L A;
+MUL : M U L -> pushMode(POSTCOM);
+MLA : M L A -> pushMode(POSTCOM);
 //Long
-SMULL : S M U L L;
-UMULL : U M U L L;
-SMLAL : S M L A L;
-UMLAL : U M L A L;
+SMULL : S M U L L -> pushMode(POSTCOM);
+UMULL : U M U L L -> pushMode(POSTCOM);
+SMLAL : S M L A L -> pushMode(POSTCOM);
+UMLAL : U M L A L -> pushMode(POSTCOM);
 
 //load and store operations
-LDR : L D R;
-STR : S T R;
-BYTEACCESS : B;
-PRIVILEGE: T;
-DOUBLEWORD: D;
-HALFWORD:H;
-SIGNEDHALFWORD:S H;
-SIGNEDBYTE: S B;
+LDR : L D R -> pushMode(POSTCOM);
+STR : S T R -> pushMode(POSTCOM);
 
 //Branch operations
-Branch: B -> pushMode(BRANCHMODE);
-BranchAndLink: B L -> pushMode(BRANCHMODE);
-BLX: B L X -> pushMode(BRANCHMODE);
-BX: B X -> pushMode(BRANCHMODE);
-BXJ: B X J -> pushMode(BRANCHMODE);
+Branch          : B     -> mode(BRANCHMODE), pushMode(POSTCOM);
+BranchAndLink   : B L   -> mode(BRANCHMODE), pushMode(POSTCOM);
+BLX             : B L X -> mode(BRANCHMODE), pushMode(POSTCOM);
+BX              : B X   -> mode(BRANCHMODE), pushMode(POSTCOM);
+BXJ             : B X J -> mode(BRANCHMODE), pushMode(POSTCOM);
 
 // Shift operations
-LSL: L S L;
-LSR: L S R;
-ASR: A S R;
-ROR: R O R;
-RRX: R R X;
-
-
+LSL: L S L -> pushMode(POSTCOM);
+LSR: L S R -> pushMode(POSTCOM);
+ASR: A S R -> pushMode(POSTCOM);
+ROR: R O R -> pushMode(POSTCOM);
+RRX: R R X -> pushMode(POSTCOM);
 
 // Registers
 R0 : R '0';
@@ -108,8 +80,8 @@ COLON: ':';
 LBRACKET: '[';
 RBRACKET: ']';
 SPECIALRBRACKET: ']!';
-WS:[ \t] -> skip;
-
+WS:[ \t];
+TEXT: [a-zA-Z]+;
 fragment A : [aA];
 fragment B : [bB];
 fragment C : [cC];
@@ -138,4 +110,34 @@ fragment Y : [yY];
 fragment Z : [zZ];
 
 mode BRANCHMODE;
-LABELTEXT: [a-zA-Z]+ -> popMode;
+
+LABELTEXT: [a-zA-Z]+;
+BRANCHEND: NEWLINE -> mode(DEFAULT_MODE);
+mode POSTCOM;
+
+// Conditions
+EQ : E Q -> more;
+NE : N E -> more;
+CS : C S -> more;
+CC : C C -> more;
+MI : M I -> more;
+PL : P L -> more;
+VS : V S -> more;
+VC : V C -> more;
+HI : H I -> more;
+LS : L S -> more;
+GE : G E -> more;
+LT : L T -> more;
+GT : G T -> more;
+LE : L E -> more;
+AL : A L -> more;
+UPDATEFLAG: S -> more;
+
+BYTEACCESS      : B  -> more;
+PRIVILEGE       : T  -> more;
+DOUBLEWORD      : D  -> more;
+HALFWORD        : H  -> more;
+SIGNEDHALFWORD  :S H -> more;
+SIGNEDBYTE      :S B -> more;
+
+COMEND: [ \t] -> popMode;

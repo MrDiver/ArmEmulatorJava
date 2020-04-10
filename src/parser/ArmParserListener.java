@@ -68,6 +68,26 @@ public interface ArmParserListener extends ParseTreeListener {
 	 */
 	void exitReg(ArmParser.RegContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link ArmParser#labelReference}.
+	 * @param ctx the parse tree
+	 */
+	void enterLabelReference(ArmParser.LabelReferenceContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ArmParser#labelReference}.
+	 * @param ctx the parse tree
+	 */
+	void exitLabelReference(ArmParser.LabelReferenceContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ArmParser#label}.
+	 * @param ctx the parse tree
+	 */
+	void enterLabel(ArmParser.LabelContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ArmParser#label}.
+	 * @param ctx the parse tree
+	 */
+	void exitLabel(ArmParser.LabelContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link ArmParser#immediate}.
 	 * @param ctx the parse tree
 	 */
@@ -289,14 +309,4 @@ public interface ArmParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitPostIndexedAddressing(ArmParser.PostIndexedAddressingContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link ArmParser#labelReference}.
-	 * @param ctx the parse tree
-	 */
-	void enterLabelReference(ArmParser.LabelReferenceContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ArmParser#labelReference}.
-	 * @param ctx the parse tree
-	 */
-	void exitLabelReference(ArmParser.LabelReferenceContext ctx);
 }
