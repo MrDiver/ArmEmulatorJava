@@ -1,10 +1,6 @@
 
 main:
-    MOV R1,#5
-    MOV R1,#5
-    MOV R1,#5
-    MOV R1,#5
-    MOV R1,#5
-    MOV R1,#5
-    MOV R1,#5
-    MVN R0,R1, LSL #2
+    MOV r0,#1
+    MOV r1,#1
+    CMP r0,r0
+    MOVNE r0,#5

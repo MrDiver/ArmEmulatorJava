@@ -29,7 +29,7 @@ public class Main {
 
         Processor p = new Processor();
         p.imem = visitor.program.toArray(p.imem);
-
+//        p.DEBUG = true;
         while(p.nextInstruction()!=null){
             p.emulateCycle();
         }

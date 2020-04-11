@@ -20,14 +20,14 @@ public class ArmParser extends Parser {
 		AND=1, EOR=2, SUB=3, RSB=4, ADD=5, ADC=6, SBC=7, RSC=8, TST=9, TEQ=10, 
 		CMP=11, CMN=12, ORR=13, MOV=14, BIC=15, MVN=16, MUL=17, MLA=18, SMULL=19, 
 		UMULL=20, SMLAL=21, UMLAL=22, LDR=23, STR=24, Branch=25, BranchAndLink=26, 
-		BLX=27, BX=28, BXJ=29, LSL=30, LSR=31, ASR=32, ROR=33, RRX=34, R0=35, 
+		BLX=27, BX=28, BXJ=29, LSLI=30, LSRI=31, ASRI=32, RORI=33, RRXI=34, R0=35, 
 		R1=36, R2=37, R3=38, R4=39, R5=40, R6=41, R7=42, R8=43, R9=44, R10=45, 
 		R11=46, R12=47, R13=48, R14=49, R15=50, HASH=51, HEX=52, NUMBER=53, COMMENTM=54, 
 		COMMENT=55, NEWLINE=56, COMMA=57, COLON=58, LBRACKET=59, RBRACKET=60, 
 		SPECIALRBRACKET=61, WS=62, LABEL=63, LETTER=64, LABELTEXT=65, BRANCHEND=66, 
-		COMEND=67, EQ=68, NE=69, CS=70, CC=71, MI=72, PL=73, VS=74, VC=75, HI=76, 
-		LS=77, GE=78, LT=79, GT=80, LE=81, AL=82, UPDATEFLAG=83, BYTEACCESS=84, 
-		PRIVILEGE=85, DOUBLEWORD=86, HALFWORD=87, SIGNEDHALFWORD=88, SIGNEDBYTE=89;
+		EQ=67, NE=68, CS=69, CC=70, MI=71, PL=72, VS=73, VC=74, HI=75, LS=76, 
+		GE=77, LT=78, GT=79, LE=80, AL=81, UPDATEFLAG=82, BYTEACCESS=83, PRIVILEGE=84, 
+		DOUBLEWORD=85, HALFWORD=86, SIGNEDHALFWORD=87, SIGNEDBYTE=88, COMEND=89;
 	public static final int
 		RULE_compilationUnit = 0, RULE_program = 1, RULE_statement = 2, RULE_instruction = 3, 
 		RULE_cond = 4, RULE_reg = 5, RULE_labelReference = 6, RULE_label = 7, 
@@ -60,13 +60,14 @@ public class ArmParser extends Parser {
 			null, "AND", "EOR", "SUB", "RSB", "ADD", "ADC", "SBC", "RSC", "TST", 
 			"TEQ", "CMP", "CMN", "ORR", "MOV", "BIC", "MVN", "MUL", "MLA", "SMULL", 
 			"UMULL", "SMLAL", "UMLAL", "LDR", "STR", "Branch", "BranchAndLink", "BLX", 
-			"BX", "BXJ", "LSL", "LSR", "ASR", "ROR", "RRX", "R0", "R1", "R2", "R3", 
-			"R4", "R5", "R6", "R7", "R8", "R9", "R10", "R11", "R12", "R13", "R14", 
-			"R15", "HASH", "HEX", "NUMBER", "COMMENTM", "COMMENT", "NEWLINE", "COMMA", 
-			"COLON", "LBRACKET", "RBRACKET", "SPECIALRBRACKET", "WS", "LABEL", "LETTER", 
-			"LABELTEXT", "BRANCHEND", "COMEND", "EQ", "NE", "CS", "CC", "MI", "PL", 
+			"BX", "BXJ", "LSLI", "LSRI", "ASRI", "RORI", "RRXI", "R0", "R1", "R2", 
+			"R3", "R4", "R5", "R6", "R7", "R8", "R9", "R10", "R11", "R12", "R13", 
+			"R14", "R15", "HASH", "HEX", "NUMBER", "COMMENTM", "COMMENT", "NEWLINE", 
+			"COMMA", "COLON", "LBRACKET", "RBRACKET", "SPECIALRBRACKET", "WS", "LABEL", 
+			"LETTER", "LABELTEXT", "BRANCHEND", "EQ", "NE", "CS", "CC", "MI", "PL", 
 			"VS", "VC", "HI", "LS", "GE", "LT", "GT", "LE", "AL", "UPDATEFLAG", "BYTEACCESS", 
-			"PRIVILEGE", "DOUBLEWORD", "HALFWORD", "SIGNEDHALFWORD", "SIGNEDBYTE"
+			"PRIVILEGE", "DOUBLEWORD", "HALFWORD", "SIGNEDHALFWORD", "SIGNEDBYTE", 
+			"COMEND"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -596,7 +597,7 @@ public class ArmParser extends Parser {
 			{
 			setState(100);
 			_la = _input.LA(1);
-			if ( !(((((_la - 68)) & ~0x3f) == 0 && ((1L << (_la - 68)) & ((1L << (EQ - 68)) | (1L << (NE - 68)) | (1L << (CS - 68)) | (1L << (CC - 68)) | (1L << (MI - 68)) | (1L << (PL - 68)) | (1L << (VS - 68)) | (1L << (VC - 68)) | (1L << (HI - 68)) | (1L << (LS - 68)) | (1L << (GE - 68)) | (1L << (LT - 68)) | (1L << (GT - 68)) | (1L << (LE - 68)) | (1L << (AL - 68)))) != 0)) ) {
+			if ( !(((((_la - 67)) & ~0x3f) == 0 && ((1L << (_la - 67)) & ((1L << (EQ - 67)) | (1L << (NE - 67)) | (1L << (CS - 67)) | (1L << (CC - 67)) | (1L << (MI - 67)) | (1L << (PL - 67)) | (1L << (VS - 67)) | (1L << (VC - 67)) | (1L << (HI - 67)) | (1L << (LS - 67)) | (1L << (GE - 67)) | (1L << (LT - 67)) | (1L << (GT - 67)) | (1L << (LE - 67)) | (1L << (AL - 67)))) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -880,7 +881,7 @@ public class ArmParser extends Parser {
 			setState(113);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (((((_la - 68)) & ~0x3f) == 0 && ((1L << (_la - 68)) & ((1L << (EQ - 68)) | (1L << (NE - 68)) | (1L << (CS - 68)) | (1L << (CC - 68)) | (1L << (MI - 68)) | (1L << (PL - 68)) | (1L << (VS - 68)) | (1L << (VC - 68)) | (1L << (HI - 68)) | (1L << (LS - 68)) | (1L << (GE - 68)) | (1L << (LT - 68)) | (1L << (GT - 68)) | (1L << (LE - 68)) | (1L << (AL - 68)))) != 0)) {
+			if (((((_la - 67)) & ~0x3f) == 0 && ((1L << (_la - 67)) & ((1L << (EQ - 67)) | (1L << (NE - 67)) | (1L << (CS - 67)) | (1L << (CC - 67)) | (1L << (MI - 67)) | (1L << (PL - 67)) | (1L << (VS - 67)) | (1L << (VC - 67)) | (1L << (HI - 67)) | (1L << (LS - 67)) | (1L << (GE - 67)) | (1L << (LT - 67)) | (1L << (GT - 67)) | (1L << (LE - 67)) | (1L << (AL - 67)))) != 0)) {
 				{
 				setState(112);
 				cond();
@@ -1077,7 +1078,7 @@ public class ArmParser extends Parser {
 				setState(126);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if (((((_la - 68)) & ~0x3f) == 0 && ((1L << (_la - 68)) & ((1L << (EQ - 68)) | (1L << (NE - 68)) | (1L << (CS - 68)) | (1L << (CC - 68)) | (1L << (MI - 68)) | (1L << (PL - 68)) | (1L << (VS - 68)) | (1L << (VC - 68)) | (1L << (HI - 68)) | (1L << (LS - 68)) | (1L << (GE - 68)) | (1L << (LT - 68)) | (1L << (GT - 68)) | (1L << (LE - 68)) | (1L << (AL - 68)))) != 0)) {
+				if (((((_la - 67)) & ~0x3f) == 0 && ((1L << (_la - 67)) & ((1L << (EQ - 67)) | (1L << (NE - 67)) | (1L << (CS - 67)) | (1L << (CC - 67)) | (1L << (MI - 67)) | (1L << (PL - 67)) | (1L << (VS - 67)) | (1L << (VC - 67)) | (1L << (HI - 67)) | (1L << (LS - 67)) | (1L << (GE - 67)) | (1L << (LT - 67)) | (1L << (GT - 67)) | (1L << (LE - 67)) | (1L << (AL - 67)))) != 0)) {
 					{
 					setState(125);
 					cond();
@@ -1167,7 +1168,7 @@ public class ArmParser extends Parser {
 				setState(156);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if (((((_la - 68)) & ~0x3f) == 0 && ((1L << (_la - 68)) & ((1L << (EQ - 68)) | (1L << (NE - 68)) | (1L << (CS - 68)) | (1L << (CC - 68)) | (1L << (MI - 68)) | (1L << (PL - 68)) | (1L << (VS - 68)) | (1L << (VC - 68)) | (1L << (HI - 68)) | (1L << (LS - 68)) | (1L << (GE - 68)) | (1L << (LT - 68)) | (1L << (GT - 68)) | (1L << (LE - 68)) | (1L << (AL - 68)))) != 0)) {
+				if (((((_la - 67)) & ~0x3f) == 0 && ((1L << (_la - 67)) & ((1L << (EQ - 67)) | (1L << (NE - 67)) | (1L << (CS - 67)) | (1L << (CC - 67)) | (1L << (MI - 67)) | (1L << (PL - 67)) | (1L << (VS - 67)) | (1L << (VC - 67)) | (1L << (HI - 67)) | (1L << (LS - 67)) | (1L << (GE - 67)) | (1L << (LT - 67)) | (1L << (GT - 67)) | (1L << (LE - 67)) | (1L << (AL - 67)))) != 0)) {
 					{
 					setState(155);
 					cond();
@@ -1253,7 +1254,7 @@ public class ArmParser extends Parser {
 				setState(183);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if (((((_la - 68)) & ~0x3f) == 0 && ((1L << (_la - 68)) & ((1L << (EQ - 68)) | (1L << (NE - 68)) | (1L << (CS - 68)) | (1L << (CC - 68)) | (1L << (MI - 68)) | (1L << (PL - 68)) | (1L << (VS - 68)) | (1L << (VC - 68)) | (1L << (HI - 68)) | (1L << (LS - 68)) | (1L << (GE - 68)) | (1L << (LT - 68)) | (1L << (GT - 68)) | (1L << (LE - 68)) | (1L << (AL - 68)))) != 0)) {
+				if (((((_la - 67)) & ~0x3f) == 0 && ((1L << (_la - 67)) & ((1L << (EQ - 67)) | (1L << (NE - 67)) | (1L << (CS - 67)) | (1L << (CC - 67)) | (1L << (MI - 67)) | (1L << (PL - 67)) | (1L << (VS - 67)) | (1L << (VC - 67)) | (1L << (HI - 67)) | (1L << (LS - 67)) | (1L << (GE - 67)) | (1L << (LT - 67)) | (1L << (GT - 67)) | (1L << (LE - 67)) | (1L << (AL - 67)))) != 0)) {
 					{
 					setState(182);
 					cond();
@@ -1589,7 +1590,7 @@ public class ArmParser extends Parser {
 		}
 	}
 	public static class RotateWithExtendContext extends Shift_operationContext {
-		public TerminalNode RRX() { return getToken(ArmParser.RRX, 0); }
+		public TerminalNode RRXI() { return getToken(ArmParser.RRXI, 0); }
 		public RotateWithExtendContext(Shift_operationContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -1671,7 +1672,7 @@ public class ArmParser extends Parser {
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(267);
-				match(RRX);
+				match(RRXI);
 				}
 				break;
 			}
@@ -1688,10 +1689,10 @@ public class ArmParser extends Parser {
 	}
 
 	public static class ShiftopcodeContext extends ParserRuleContext {
-		public TerminalNode LSL() { return getToken(ArmParser.LSL, 0); }
-		public TerminalNode LSR() { return getToken(ArmParser.LSR, 0); }
-		public TerminalNode ASR() { return getToken(ArmParser.ASR, 0); }
-		public TerminalNode ROR() { return getToken(ArmParser.ROR, 0); }
+		public TerminalNode LSLI() { return getToken(ArmParser.LSLI, 0); }
+		public TerminalNode LSRI() { return getToken(ArmParser.LSRI, 0); }
+		public TerminalNode ASRI() { return getToken(ArmParser.ASRI, 0); }
+		public TerminalNode RORI() { return getToken(ArmParser.RORI, 0); }
 		public ShiftopcodeContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -1720,7 +1721,7 @@ public class ArmParser extends Parser {
 			{
 			setState(270);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << LSL) | (1L << LSR) | (1L << ASR) | (1L << ROR))) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << LSLI) | (1L << LSRI) | (1L << ASRI) | (1L << RORI))) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -1848,7 +1849,7 @@ public class ArmParser extends Parser {
 				setState(274);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if (((((_la - 68)) & ~0x3f) == 0 && ((1L << (_la - 68)) & ((1L << (EQ - 68)) | (1L << (NE - 68)) | (1L << (CS - 68)) | (1L << (CC - 68)) | (1L << (MI - 68)) | (1L << (PL - 68)) | (1L << (VS - 68)) | (1L << (VC - 68)) | (1L << (HI - 68)) | (1L << (LS - 68)) | (1L << (GE - 68)) | (1L << (LT - 68)) | (1L << (GT - 68)) | (1L << (LE - 68)) | (1L << (AL - 68)))) != 0)) {
+				if (((((_la - 67)) & ~0x3f) == 0 && ((1L << (_la - 67)) & ((1L << (EQ - 67)) | (1L << (NE - 67)) | (1L << (CS - 67)) | (1L << (CC - 67)) | (1L << (MI - 67)) | (1L << (PL - 67)) | (1L << (VS - 67)) | (1L << (VC - 67)) | (1L << (HI - 67)) | (1L << (LS - 67)) | (1L << (GE - 67)) | (1L << (LT - 67)) | (1L << (GT - 67)) | (1L << (LE - 67)) | (1L << (AL - 67)))) != 0)) {
 					{
 					setState(273);
 					cond();
@@ -1971,7 +1972,7 @@ public class ArmParser extends Parser {
 				setState(318);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if (((((_la - 68)) & ~0x3f) == 0 && ((1L << (_la - 68)) & ((1L << (EQ - 68)) | (1L << (NE - 68)) | (1L << (CS - 68)) | (1L << (CC - 68)) | (1L << (MI - 68)) | (1L << (PL - 68)) | (1L << (VS - 68)) | (1L << (VC - 68)) | (1L << (HI - 68)) | (1L << (LS - 68)) | (1L << (GE - 68)) | (1L << (LT - 68)) | (1L << (GT - 68)) | (1L << (LE - 68)) | (1L << (AL - 68)))) != 0)) {
+				if (((((_la - 67)) & ~0x3f) == 0 && ((1L << (_la - 67)) & ((1L << (EQ - 67)) | (1L << (NE - 67)) | (1L << (CS - 67)) | (1L << (CC - 67)) | (1L << (MI - 67)) | (1L << (PL - 67)) | (1L << (VS - 67)) | (1L << (VC - 67)) | (1L << (HI - 67)) | (1L << (LS - 67)) | (1L << (GE - 67)) | (1L << (LT - 67)) | (1L << (GT - 67)) | (1L << (LE - 67)) | (1L << (AL - 67)))) != 0)) {
 					{
 					setState(317);
 					cond();
@@ -2231,7 +2232,7 @@ public class ArmParser extends Parser {
 				setState(378);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if (((((_la - 68)) & ~0x3f) == 0 && ((1L << (_la - 68)) & ((1L << (EQ - 68)) | (1L << (NE - 68)) | (1L << (CS - 68)) | (1L << (CC - 68)) | (1L << (MI - 68)) | (1L << (PL - 68)) | (1L << (VS - 68)) | (1L << (VC - 68)) | (1L << (HI - 68)) | (1L << (LS - 68)) | (1L << (GE - 68)) | (1L << (LT - 68)) | (1L << (GT - 68)) | (1L << (LE - 68)) | (1L << (AL - 68)))) != 0)) {
+				if (((((_la - 67)) & ~0x3f) == 0 && ((1L << (_la - 67)) & ((1L << (EQ - 67)) | (1L << (NE - 67)) | (1L << (CS - 67)) | (1L << (CC - 67)) | (1L << (MI - 67)) | (1L << (PL - 67)) | (1L << (VS - 67)) | (1L << (VC - 67)) | (1L << (HI - 67)) | (1L << (LS - 67)) | (1L << (GE - 67)) | (1L << (LT - 67)) | (1L << (GT - 67)) | (1L << (LE - 67)) | (1L << (AL - 67)))) != 0)) {
 					{
 					setState(377);
 					cond();
@@ -2328,7 +2329,7 @@ public class ArmParser extends Parser {
 				setState(411);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if (((((_la - 68)) & ~0x3f) == 0 && ((1L << (_la - 68)) & ((1L << (EQ - 68)) | (1L << (NE - 68)) | (1L << (CS - 68)) | (1L << (CC - 68)) | (1L << (MI - 68)) | (1L << (PL - 68)) | (1L << (VS - 68)) | (1L << (VC - 68)) | (1L << (HI - 68)) | (1L << (LS - 68)) | (1L << (GE - 68)) | (1L << (LT - 68)) | (1L << (GT - 68)) | (1L << (LE - 68)) | (1L << (AL - 68)))) != 0)) {
+				if (((((_la - 67)) & ~0x3f) == 0 && ((1L << (_la - 67)) & ((1L << (EQ - 67)) | (1L << (NE - 67)) | (1L << (CS - 67)) | (1L << (CC - 67)) | (1L << (MI - 67)) | (1L << (PL - 67)) | (1L << (VS - 67)) | (1L << (VC - 67)) | (1L << (HI - 67)) | (1L << (LS - 67)) | (1L << (GE - 67)) | (1L << (LT - 67)) | (1L << (GT - 67)) | (1L << (LE - 67)) | (1L << (AL - 67)))) != 0)) {
 					{
 					setState(410);
 					cond();
@@ -2337,7 +2338,7 @@ public class ArmParser extends Parser {
 
 				setState(413);
 				_la = _input.LA(1);
-				if ( !(((((_la - 86)) & ~0x3f) == 0 && ((1L << (_la - 86)) & ((1L << (DOUBLEWORD - 86)) | (1L << (HALFWORD - 86)) | (1L << (SIGNEDHALFWORD - 86)) | (1L << (SIGNEDBYTE - 86)))) != 0)) ) {
+				if ( !(((((_la - 85)) & ~0x3f) == 0 && ((1L << (_la - 85)) & ((1L << (DOUBLEWORD - 85)) | (1L << (HALFWORD - 85)) | (1L << (SIGNEDHALFWORD - 85)) | (1L << (SIGNEDBYTE - 85)))) != 0)) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -2814,8 +2815,8 @@ public class ArmParser extends Parser {
 		"\22\u0203\n\22\f\22\16\22\u0206\13\22\3\22\3\22\7\22\u020a\n\22\f\22\16"+
 		"\22\u020d\13\22\3\22\3\22\7\22\u0211\n\22\f\22\16\22\u0214\13\22\3\22"+
 		"\3\22\5\22\u0218\n\22\3\22\2\2\23\2\4\6\b\n\f\16\20\22\24\26\30\32\34"+
-		"\36 \"\2\16\4\2::DD\3\2FT\3\2%\64\3\2\66\67\3\2\33\37\4\2\20\20\22\22"+
-		"\3\2\13\16\5\2\3\n\17\17\21\21\3\2 #\3\2\24\30\3\2\31\32\3\2X[\2\u025f"+
+		"\36 \"\2\16\4\2::DD\3\2ES\3\2%\64\3\2\66\67\3\2\33\37\4\2\20\20\22\22"+
+		"\3\2\13\16\5\2\3\n\17\17\21\21\3\2 #\3\2\24\30\3\2\31\32\3\2WZ\2\u025f"+
 		"\2$\3\2\2\2\4*\3\2\2\2\6^\3\2\2\2\bd\3\2\2\2\nf\3\2\2\2\fh\3\2\2\2\16"+
 		"j\3\2\2\2\20l\3\2\2\2\22n\3\2\2\2\24q\3\2\2\2\26\u00e3\3\2\2\2\30\u00f7"+
 		"\3\2\2\2\32\u010e\3\2\2\2\34\u0110\3\2\2\2\36\u0178\3\2\2\2 \u01b7\3\2"+
@@ -2834,11 +2835,11 @@ public class ArmParser extends Parser {
 		"\2da\3\2\2\2db\3\2\2\2dc\3\2\2\2e\t\3\2\2\2fg\t\3\2\2g\13\3\2\2\2hi\t"+
 		"\4\2\2i\r\3\2\2\2jk\7C\2\2k\17\3\2\2\2lm\7A\2\2m\21\3\2\2\2no\7\65\2\2"+
 		"op\t\5\2\2p\23\3\2\2\2qs\t\6\2\2rt\5\n\6\2sr\3\2\2\2st\3\2\2\2tu\3\2\2"+
-		"\2uy\7E\2\2vx\7@\2\2wv\3\2\2\2x{\3\2\2\2yw\3\2\2\2yz\3\2\2\2z|\3\2\2\2"+
+		"\2uy\7[\2\2vx\7@\2\2wv\3\2\2\2x{\3\2\2\2yw\3\2\2\2yz\3\2\2\2z|\3\2\2\2"+
 		"{y\3\2\2\2|}\5\16\b\2}\25\3\2\2\2~\u0080\t\7\2\2\177\u0081\5\n\6\2\u0080"+
-		"\177\3\2\2\2\u0080\u0081\3\2\2\2\u0081\u0083\3\2\2\2\u0082\u0084\7U\2"+
+		"\177\3\2\2\2\u0080\u0081\3\2\2\2\u0081\u0083\3\2\2\2\u0082\u0084\7T\2"+
 		"\2\u0083\u0082\3\2\2\2\u0083\u0084\3\2\2\2\u0084\u0085\3\2\2\2\u0085\u0089"+
-		"\7E\2\2\u0086\u0088\7@\2\2\u0087\u0086\3\2\2\2\u0088\u008b\3\2\2\2\u0089"+
+		"\7[\2\2\u0086\u0088\7@\2\2\u0087\u0086\3\2\2\2\u0088\u008b\3\2\2\2\u0089"+
 		"\u0087\3\2\2\2\u0089\u008a\3\2\2\2\u008a\u008c\3\2\2\2\u008b\u0089\3\2"+
 		"\2\2\u008c\u0090\5\f\7\2\u008d\u008f\7@\2\2\u008e\u008d\3\2\2\2\u008f"+
 		"\u0092\3\2\2\2\u0090\u008e\3\2\2\2\u0090\u0091\3\2\2\2\u0091\u0093\3\2"+
@@ -2846,7 +2847,7 @@ public class ArmParser extends Parser {
 		"\3\2\2\2\u0096\u0099\3\2\2\2\u0097\u0095\3\2\2\2\u0097\u0098\3\2\2\2\u0098"+
 		"\u009a\3\2\2\2\u0099\u0097\3\2\2\2\u009a\u009b\5\30\r\2\u009b\u00e4\3"+
 		"\2\2\2\u009c\u009e\t\b\2\2\u009d\u009f\5\n\6\2\u009e\u009d\3\2\2\2\u009e"+
-		"\u009f\3\2\2\2\u009f\u00a0\3\2\2\2\u00a0\u00a4\7E\2\2\u00a1\u00a3\7@\2"+
+		"\u009f\3\2\2\2\u009f\u00a0\3\2\2\2\u00a0\u00a4\7[\2\2\u00a1\u00a3\7@\2"+
 		"\2\u00a2\u00a1\3\2\2\2\u00a3\u00a6\3\2\2\2\u00a4\u00a2\3\2\2\2\u00a4\u00a5"+
 		"\3\2\2\2\u00a5\u00a7\3\2\2\2\u00a6\u00a4\3\2\2\2\u00a7\u00ab\5\f\7\2\u00a8"+
 		"\u00aa\7@\2\2\u00a9\u00a8\3\2\2\2\u00aa\u00ad\3\2\2\2\u00ab\u00a9\3\2"+
@@ -2855,8 +2856,8 @@ public class ArmParser extends Parser {
 		"\2\u00b2\u00b0\3\2\2\2\u00b2\u00b3\3\2\2\2\u00b3\u00b5\3\2\2\2\u00b4\u00b2"+
 		"\3\2\2\2\u00b5\u00b6\5\30\r\2\u00b6\u00e4\3\2\2\2\u00b7\u00b9\t\t\2\2"+
 		"\u00b8\u00ba\5\n\6\2\u00b9\u00b8\3\2\2\2\u00b9\u00ba\3\2\2\2\u00ba\u00bc"+
-		"\3\2\2\2\u00bb\u00bd\7U\2\2\u00bc\u00bb\3\2\2\2\u00bc\u00bd\3\2\2\2\u00bd"+
-		"\u00be\3\2\2\2\u00be\u00c2\7E\2\2\u00bf\u00c1\7@\2\2\u00c0\u00bf\3\2\2"+
+		"\3\2\2\2\u00bb\u00bd\7T\2\2\u00bc\u00bb\3\2\2\2\u00bc\u00bd\3\2\2\2\u00bd"+
+		"\u00be\3\2\2\2\u00be\u00c2\7[\2\2\u00bf\u00c1\7@\2\2\u00c0\u00bf\3\2\2"+
 		"\2\u00c1\u00c4\3\2\2\2\u00c2\u00c0\3\2\2\2\u00c2\u00c3\3\2\2\2\u00c3\u00c5"+
 		"\3\2\2\2\u00c4\u00c2\3\2\2\2\u00c5\u00c9\5\f\7\2\u00c6\u00c8\7@\2\2\u00c7"+
 		"\u00c6\3\2\2\2\u00c8\u00cb\3\2\2\2\u00c9\u00c7\3\2\2\2\u00c9\u00ca\3\2"+
@@ -2876,17 +2877,17 @@ public class ArmParser extends Parser {
 		"\2\u00f2\u00f0\3\2\2\2\u00f2\u00f3\3\2\2\2\u00f3\u00f5\3\2\2\2\u00f4\u00f2"+
 		"\3\2\2\2\u00f5\u00f6\5\32\16\2\u00f6\u00f8\3\2\2\2\u00f7\u00e5\3\2\2\2"+
 		"\u00f7\u00e6\3\2\2\2\u00f7\u00e7\3\2\2\2\u00f8\31\3\2\2\2\u00f9\u00fa"+
-		"\5\34\17\2\u00fa\u00fe\7E\2\2\u00fb\u00fd\7@\2\2\u00fc\u00fb\3\2\2\2\u00fd"+
+		"\5\34\17\2\u00fa\u00fe\7[\2\2\u00fb\u00fd\7@\2\2\u00fc\u00fb\3\2\2\2\u00fd"+
 		"\u0100\3\2\2\2\u00fe\u00fc\3\2\2\2\u00fe\u00ff\3\2\2\2\u00ff\u0101\3\2"+
 		"\2\2\u0100\u00fe\3\2\2\2\u0101\u0102\5\22\n\2\u0102\u010f\3\2\2\2\u0103"+
-		"\u0104\5\34\17\2\u0104\u0108\7E\2\2\u0105\u0107\7@\2\2\u0106\u0105\3\2"+
+		"\u0104\5\34\17\2\u0104\u0108\7[\2\2\u0105\u0107\7@\2\2\u0106\u0105\3\2"+
 		"\2\2\u0107\u010a\3\2\2\2\u0108\u0106\3\2\2\2\u0108\u0109\3\2\2\2\u0109"+
 		"\u010b\3\2\2\2\u010a\u0108\3\2\2\2\u010b\u010c\5\f\7\2\u010c\u010f\3\2"+
 		"\2\2\u010d\u010f\7$\2\2\u010e\u00f9\3\2\2\2\u010e\u0103\3\2\2\2\u010e"+
 		"\u010d\3\2\2\2\u010f\33\3\2\2\2\u0110\u0111\t\n\2\2\u0111\35\3\2\2\2\u0112"+
 		"\u0114\7\23\2\2\u0113\u0115\5\n\6\2\u0114\u0113\3\2\2\2\u0114\u0115\3"+
-		"\2\2\2\u0115\u0117\3\2\2\2\u0116\u0118\7U\2\2\u0117\u0116\3\2\2\2\u0117"+
-		"\u0118\3\2\2\2\u0118\u0119\3\2\2\2\u0119\u011d\7E\2\2\u011a\u011c\7@\2"+
+		"\2\2\2\u0115\u0117\3\2\2\2\u0116\u0118\7T\2\2\u0117\u0116\3\2\2\2\u0117"+
+		"\u0118\3\2\2\2\u0118\u0119\3\2\2\2\u0119\u011d\7[\2\2\u011a\u011c\7@\2"+
 		"\2\u011b\u011a\3\2\2\2\u011c\u011f\3\2\2\2\u011d\u011b\3\2\2\2\u011d\u011e"+
 		"\3\2\2\2\u011e\u0120\3\2\2\2\u011f\u011d\3\2\2\2\u0120\u0124\5\f\7\2\u0121"+
 		"\u0123\7@\2\2\u0122\u0121\3\2\2\2\u0123\u0126\3\2\2\2\u0124\u0122\3\2"+
@@ -2899,8 +2900,8 @@ public class ArmParser extends Parser {
 		"\3\2\2\2\u0138\u013b\3\2\2\2\u0139\u0137\3\2\2\2\u0139\u013a\3\2\2\2\u013a"+
 		"\u013c\3\2\2\2\u013b\u0139\3\2\2\2\u013c\u013d\5\f\7\2\u013d\u0179\3\2"+
 		"\2\2\u013e\u0140\t\13\2\2\u013f\u0141\5\n\6\2\u0140\u013f\3\2\2\2\u0140"+
-		"\u0141\3\2\2\2\u0141\u0143\3\2\2\2\u0142\u0144\7U\2\2\u0143\u0142\3\2"+
-		"\2\2\u0143\u0144\3\2\2\2\u0144\u0145\3\2\2\2\u0145\u0149\7E\2\2\u0146"+
+		"\u0141\3\2\2\2\u0141\u0143\3\2\2\2\u0142\u0144\7T\2\2\u0143\u0142\3\2"+
+		"\2\2\u0143\u0144\3\2\2\2\u0144\u0145\3\2\2\2\u0145\u0149\7[\2\2\u0146"+
 		"\u0148\7@\2\2\u0147\u0146\3\2\2\2\u0148\u014b\3\2\2\2\u0149\u0147\3\2"+
 		"\2\2\u0149\u014a\3\2\2\2\u014a\u014c\3\2\2\2\u014b\u0149\3\2\2\2\u014c"+
 		"\u0150\5\f\7\2\u014d\u014f\7@\2\2\u014e\u014d\3\2\2\2\u014f\u0152\3\2"+
@@ -2919,9 +2920,9 @@ public class ArmParser extends Parser {
 		"\3\2\2\2\u0175\u0173\3\2\2\2\u0176\u0177\5\f\7\2\u0177\u0179\3\2\2\2\u0178"+
 		"\u0112\3\2\2\2\u0178\u013e\3\2\2\2\u0179\37\3\2\2\2\u017a\u017c\t\f\2"+
 		"\2\u017b\u017d\5\n\6\2\u017c\u017b\3\2\2\2\u017c\u017d\3\2\2\2\u017d\u017f"+
-		"\3\2\2\2\u017e\u0180\7V\2\2\u017f\u017e\3\2\2\2\u017f\u0180\3\2\2\2\u0180"+
-		"\u0182\3\2\2\2\u0181\u0183\7W\2\2\u0182\u0181\3\2\2\2\u0182\u0183\3\2"+
-		"\2\2\u0183\u0184\3\2\2\2\u0184\u0188\7E\2\2\u0185\u0187\7@\2\2\u0186\u0185"+
+		"\3\2\2\2\u017e\u0180\7U\2\2\u017f\u017e\3\2\2\2\u017f\u0180\3\2\2\2\u0180"+
+		"\u0182\3\2\2\2\u0181\u0183\7V\2\2\u0182\u0181\3\2\2\2\u0182\u0183\3\2"+
+		"\2\2\u0183\u0184\3\2\2\2\u0184\u0188\7[\2\2\u0185\u0187\7@\2\2\u0186\u0185"+
 		"\3\2\2\2\u0187\u018a\3\2\2\2\u0188\u0186\3\2\2\2\u0188\u0189\3\2\2\2\u0189"+
 		"\u018b\3\2\2\2\u018a\u0188\3\2\2\2\u018b\u018f\5\f\7\2\u018c\u018e\7@"+
 		"\2\2\u018d\u018c\3\2\2\2\u018e\u0191\3\2\2\2\u018f\u018d\3\2\2\2\u018f"+
@@ -2930,7 +2931,7 @@ public class ArmParser extends Parser {
 		"\u0194\3\2\2\2\u0196\u0197\3\2\2\2\u0197\u0199\3\2\2\2\u0198\u0196\3\2"+
 		"\2\2\u0199\u019a\5\"\22\2\u019a\u01b8\3\2\2\2\u019b\u019d\t\f\2\2\u019c"+
 		"\u019e\5\n\6\2\u019d\u019c\3\2\2\2\u019d\u019e\3\2\2\2\u019e\u019f\3\2"+
-		"\2\2\u019f\u01a0\t\r\2\2\u01a0\u01a4\7E\2\2\u01a1\u01a3\7@\2\2\u01a2\u01a1"+
+		"\2\2\u019f\u01a0\t\r\2\2\u01a0\u01a4\7[\2\2\u01a1\u01a3\7@\2\2\u01a2\u01a1"+
 		"\3\2\2\2\u01a3\u01a6\3\2\2\2\u01a4\u01a2\3\2\2\2\u01a4\u01a5\3\2\2\2\u01a5"+
 		"\u01a7\3\2\2\2\u01a6\u01a4\3\2\2\2\u01a7\u01ab\5\f\7\2\u01a8\u01aa\7@"+
 		"\2\2\u01a9\u01a8\3\2\2\2\u01aa\u01ad\3\2\2\2\u01ab\u01a9\3\2\2\2\u01ab"+

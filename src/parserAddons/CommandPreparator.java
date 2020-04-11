@@ -1,19 +1,18 @@
 package parserAddons;
 
-import de.ARMv5Processor.core.Processor;
+
 import de.ARMv5Processor.instructions.Condition;
 import de.ARMv5Processor.instructions.Instruction;
 import de.ARMv5Processor.instructions.ProcessorRoutine;
 import de.ARMv5Processor.instructions.SourceLocation;
 import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.tree.TerminalNode;
 import parser.ArmParser;
 import parser.ArmParserBaseVisitor;
-
-import javax.xml.transform.Source;
 import java.util.LinkedList;
 import java.util.List;
 
-import static de.ARMv5Processor.architecture.Aluops.NOT;
+import static de.ARMv5Processor.architecture.Aluops.*;
 import static de.ARMv5Processor.instructions.Condition.AL;
 
 public class CommandPreparator extends ArmParserBaseVisitor {
@@ -32,6 +31,10 @@ public class CommandPreparator extends ArmParserBaseVisitor {
             return def;
     }
 
+    boolean is(TerminalNode t){
+        return t !=null;
+    }
+
     private SourceLocation toSL(ParserRuleContext ctx){
         return new SourceLocation(ctx.start.getLine(),ctx.start.getCharPositionInLine(),ctx.stop.getLine(),ctx.stop.getCharPositionInLine());
     }
@@ -42,16 +45,40 @@ public class CommandPreparator extends ArmParserBaseVisitor {
         int rd = (Integer) visit(ctx.reg());
         Condition cond = specialVisit(ctx.cond(),AL);
 
+        ProcessorInstruction f = (ProcessorInstruction) visit(ctx.shifter_operand());
         ProcessorRoutine mov = (p)->{
             if(updateFlags)
             p.alu.updateFlags();
-            ProcessorInstruction f = (ProcessorInstruction) visit(ctx.shifter_operand());
             int value = f.getValue(p);
-            if(ctx.MVN()!=null)
+            if(is(ctx.MVN()))
             {
                 value = p.alu.calculate(NOT,value,0);
             }
             p.rf.set(rd,value);
+        };
+        Instruction inst = new Instruction(cond,mov,toSL(ctx),ctx.getText());
+        program.add(inst);
+        return inst;
+    }
+
+    @Override
+    public Object visitCompareOp(ArmParser.CompareOpContext ctx) {
+        int rn = (Integer) visit(ctx.reg());
+        Condition cond = specialVisit(ctx.cond(),AL);
+        ProcessorInstruction f = (ProcessorInstruction) visit(ctx.shifter_operand());
+        ProcessorRoutine mov = (p)->{
+            p.alu.updateFlags();
+
+            int value = f.getValue(p);
+            if(is(ctx.CMP())) {
+                p.alu.calculate(SUB,p.rf.get(rn),value);
+            }else if(is(ctx.CMN())){
+                p.alu.calculate(ADD,p.rf.get(rn),value);
+            }else if(is(ctx.TST())){
+                p.alu.calculate(AND,p.rf.get(rn),value);
+            }else if(is(ctx.TEQ())){
+                p.alu.calculate(XOR,p.rf.get(rn),value);
+            }
         };
         Instruction inst = new Instruction(cond,mov,toSL(ctx),ctx.getText());
         program.add(inst);
@@ -67,7 +94,7 @@ public class CommandPreparator extends ArmParserBaseVisitor {
 
     @Override
     public ProcessorInstruction visitOp2register(ArmParser.Op2registerContext ctx) {
-        int rn = ((Integer)visit(ctx.reg())).intValue();
+        int rn = (Integer) visit(ctx.reg());
         return (p)->p.rf.get(rn);
     }
 
