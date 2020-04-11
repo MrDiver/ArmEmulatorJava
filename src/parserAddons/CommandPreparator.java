@@ -39,6 +39,13 @@ public class CommandPreparator extends ArmParserBaseVisitor {
         return new SourceLocation(ctx.start.getLine(),ctx.start.getCharPositionInLine(),ctx.stop.getLine(),ctx.stop.getCharPositionInLine());
     }
 
+
+    /*===================================================================================================================
+     |
+     |                                             DATE PROCESSING OPERATIONS
+     |
+     ====================================================================================================================*/
+
     @Override
     public Object visitMoveOp(ArmParser.MoveOpContext ctx) {
         boolean updateFlags = ctx.UPDATEFLAG()!=null;
@@ -48,7 +55,7 @@ public class CommandPreparator extends ArmParserBaseVisitor {
         ProcessorInstruction f = (ProcessorInstruction) visit(ctx.shifter_operand());
         ProcessorRoutine mov = (p)->{
             if(updateFlags)
-            p.alu.updateFlags();
+                p.alu.updateFlags();
             int value = f.getValue(p);
             if(is(ctx.MVN()))
             {
@@ -79,6 +86,46 @@ public class CommandPreparator extends ArmParserBaseVisitor {
             }else if(is(ctx.TEQ())){
                 p.alu.calculate(XOR,p.rf.get(rn),value);
             }
+        };
+        Instruction inst = new Instruction(cond,mov,toSL(ctx),ctx.getText());
+        program.add(inst);
+        return inst;
+    }
+
+    @Override
+    public Object visitArithmeticOp(ArmParser.ArithmeticOpContext ctx) {
+        boolean updateFlags = ctx.UPDATEFLAG()!=null;
+        int rd = (Integer) visit(ctx.reg(0));
+        int rn = (Integer) visit(ctx.reg(1));
+        Condition cond = specialVisit(ctx.cond(),AL);
+        ProcessorInstruction f = (ProcessorInstruction) visit(ctx.shifter_operand());
+        ProcessorRoutine mov = (p)->{
+            if(updateFlags)
+                p.alu.updateFlags();
+            int result = 0;
+            int value = f.getValue(p);
+            if(is(ctx.ADD())) {
+                result = p.alu.calculate(ADD,p.rf.get(rn),value);
+            }else if(is(ctx.SUB())){
+                result = p.alu.calculate(SUB,p.rf.get(rn),value);
+            }else if(is(ctx.RSB())){
+                result = p.alu.calculate(SUB,value,p.rf.get(rn));
+            }else if(is(ctx.ADC())){
+                result = p.alu.calculate(ADC,p.rf.get(rn),value);
+            }else if(is(ctx.SBC())){
+                result = p.alu.calculate(SBC,p.rf.get(rn),value);
+            }else if(is(ctx.RSC())){
+                result = p.alu.calculate(SBC,value,p.rf.get(rn));
+            }else if(is(ctx.AND())){
+                result = p.alu.calculate(AND,p.rf.get(rn),value);
+            }else if(is(ctx.BIC())){
+                result = p.alu.calculate(BIC,p.rf.get(rn),value);
+            }else if(is(ctx.EOR())){
+                result = p.alu.calculate(XOR,p.rf.get(rn),value);
+            }else if(is(ctx.ORR())){
+                result = p.alu.calculate(OR,p.rf.get(rn),value);
+            }
+            p.rf.set(rd,result);
         };
         Instruction inst = new Instruction(cond,mov,toSL(ctx),ctx.getText());
         program.add(inst);
