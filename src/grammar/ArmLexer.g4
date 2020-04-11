@@ -40,11 +40,11 @@ BX              : B X   -> mode(BRANCHMODE), pushMode(POSTCOM);
 BXJ             : B X J -> mode(BRANCHMODE), pushMode(POSTCOM);
 
 // Shift operations
-LSL: L S L -> pushMode(POSTCOM);
-LSR: L S R -> pushMode(POSTCOM);
-ASR: A S R -> pushMode(POSTCOM);
-ROR: R O R -> pushMode(POSTCOM);
-RRX: R R X -> pushMode(POSTCOM);
+LSLI: L S L -> pushMode(POSTCOM);
+LSRI: L S R -> pushMode(POSTCOM);
+ASRI: A S R -> pushMode(POSTCOM);
+RORI: R O R -> pushMode(POSTCOM);
+RRXI: R R X -> pushMode(POSTCOM);
 
 // Registers
 R0 : R '0';
@@ -117,28 +117,28 @@ BRANCHEND: NEWLINE -> mode(DEFAULT_MODE);
 mode POSTCOM;
 
 // Conditions
-EQ : E Q -> more;
-NE : N E -> more;
-CS : C S -> more;
-CC : C C -> more;
-MI : M I -> more;
-PL : P L -> more;
-VS : V S -> more;
-VC : V C -> more;
-HI : H I -> more;
-LS : L S -> more;
-GE : G E -> more;
-LT : L T -> more;
-GT : G T -> more;
-LE : L E -> more;
-AL : A L -> more;
-UPDATEFLAG: S -> more;
+EQ : E Q;
+NE : N E;
+CS : C S;
+CC : C C;
+MI : M I;
+PL : P L;
+VS : V S;
+VC : V C;
+HI : H I;
+LS : L S;
+GE : G E;
+LT : L T;
+GT : G T;
+LE : L E;
+AL : A L;
+UPDATEFLAG: S;
 
-BYTEACCESS      : B  -> more;
-PRIVILEGE       : T  -> more;
-DOUBLEWORD      : D  -> more;
-HALFWORD        : H  -> more;
-SIGNEDHALFWORD  :S H -> more;
-SIGNEDBYTE      :S B -> more;
+BYTEACCESS      : B ;
+PRIVILEGE       : T ;
+DOUBLEWORD      : D ;
+HALFWORD        : H ;
+SIGNEDHALFWORD  :S H;
+SIGNEDBYTE      :S B;
 
 COMEND: [ \t] -> popMode;

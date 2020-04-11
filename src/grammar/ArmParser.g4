@@ -39,19 +39,18 @@ branch_instruction: opcode=(Branch|BranchAndLink|BLX|BX|BXJ) cond? COMEND WS* la
 data_processing_instruction : opcode=(MOV|MVN) cond? UPDATEFLAG? COMEND WS* reg WS* ',' WS* shifter_operand # moveOp
                             | opcode=(CMP|CMN|TST|TEQ) cond? COMEND WS* reg WS* ',' WS* shifter_operand # compareOp
                             | opcode=(ADD|SUB|RSB|ADC|SBC|RSC|AND|BIC|EOR|ORR) cond? UPDATEFLAG? COMEND WS* reg WS* ',' WS* reg WS* ',' WS* shifter_operand # arithmeticOp;
+                            // TODO ADD SHIFT OPERATIONS
 
 shifter_operand : immediate                 # op2immediate
                 | reg                       # op2register
                 | reg WS* ',' WS* shift_operation   # op2inlineShift
                 ;
 
-shift_operation : shiftopcode COMEND WS* immediate     # shiftByImmediate
+shift_operation : shiftopcode COMEND WS* immediate       # shiftByImmediate
                 | shiftopcode COMEND WS* reg           # shiftByRegister
-                | RRX                       # rotateWithExtend
+                | RRXI                       # rotateWithExtend
                 ;
-
-shiftopcode: LSL | LSR | ASR | ROR;
-
+shiftopcode: LSLI | LSRI | ASRI | RORI;
 
 
 /* ==================================
