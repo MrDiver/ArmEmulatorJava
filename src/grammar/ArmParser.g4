@@ -5,7 +5,7 @@ options { tokenVocab=ArmLexer; }
 //options{k=10;}
 compilationUnit: program EOF;
 
-program: (NEWLINE|BRANCHEND)* statement ((NEWLINE|BRANCHEND)+ statement)*;
+program: (NEWLINE|BRANCHEND)* WS* statement WS* ((NEWLINE|BRANCHEND)+ WS* statement WS*)*;
 
 statement:  COMMENT | COMMENTM | instruction | label | label WS* instruction;
 
