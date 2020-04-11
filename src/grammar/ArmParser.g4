@@ -21,7 +21,7 @@ instruction : data_processing_instruction
 cond: EQ| NE | CS | CC | MI | PL | VS | VC | HI | LS | GE | LT | GT | LE | AL;
 reg: (R0|R1|R2|R3|R4|R5|R6|R7|R8|R9|R10|R11|R12|R13|R14|R15);
 labelReference: LABELTEXT;
-label: TEXT ':';
+label: LABEL;
 immediate : '#' (HEX|NUMBER);
 /* ==================================
 
@@ -101,9 +101,8 @@ load_store_instruction : opcode=(LDR|STR) cond? BYTEACCESS? PRIVILEGE? COMEND WS
 //TODO: A3.12 Load and Store Multiple
 //TODO: A3.13 Semaphore Instructions
 
-addressing_mode : '[' WS* baseRegister=(R0|R1|R2|R3|R4|R5|R6|R7|R8|R9|R10|R11|R12|R13|R14|R15) (WS* ',' WS* shifter_operand )? WS*']'  #normalAddressing
-                | '[' WS* baseRegister=(R0|R1|R2|R3|R4|R5|R6|R7|R8|R9|R10|R11|R12|R13|R14|R15) (WS* ',' WS* shifter_operand )? WS*']!' #preIndexedAddressing
-                | '[' WS* baseRegister=(R0|R1|R2|R3|R4|R5|R6|R7|R8|R9|R10|R11|R12|R13|R14|R15) WS* ']' WS* ',' WS* shifter_operand     #postIndexedAddressing;
-
-
+//TODO: OPTIMIZE
+addressing_mode : '[' WS* baseRegister=reg (WS* ',' WS* shifter_operand )? WS*']'  #normalAddressing
+                | '[' WS* baseRegister=reg (WS* ',' WS* shifter_operand )? WS*']!' #preIndexedAddressing
+                | '[' WS* baseRegister=reg WS* ']' WS* ',' WS* shifter_operand     #postIndexedAddressing;
 //immediate : '#' NUMBER;
