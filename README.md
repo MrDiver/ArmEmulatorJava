@@ -1,6 +1,6 @@
 # ARMv5 Emulator in Java
 
-The purpose of this project is to implement a fully functional ARMv5 Emulator in Java.
+The purpose of this project is to implement a fully functional ARMv5 Emulator (maybe just a simulator in the end) in Java.
 
 It should parse ARM Assembler files and execute them
 
