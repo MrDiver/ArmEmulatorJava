@@ -80,7 +80,14 @@ public class ArmParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> impleme
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitBranch_instruction(ArmParser.Branch_instructionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitBranchToLabel(ArmParser.BranchToLabelContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitBranchToRegister(ArmParser.BranchToRegisterContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

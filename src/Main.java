@@ -15,7 +15,7 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        CharStream charStream = CharStreams.fromFileName("testinput/myprogram.s");
+        CharStream charStream = CharStreams.fromFileName("testinput/branchtest.s");
 
         ArmLexer armLexer = new ArmLexer(charStream);
         CommonTokenStream  commonTokenStream = new CommonTokenStream(armLexer);
@@ -25,15 +25,13 @@ public class Main {
         CommandPreparator visitor = new CommandPreparator();
         visitor.visit(parseTree);
 
-        visitor.program.forEach(System.out::println);
-
+        //visitor.program.forEach(System.out::println);
         Processor p = new Processor();
-        p.imem = visitor.program.toArray(p.imem);
-//        p.DEBUG = true;
-        while(p.nextInstruction()!=null){
-            p.emulateCycle();
-        }
-
-        System.out.println("RETURN: "+Integer.toUnsignedString(p.rf.get(0)));
+        p.loadLabels(visitor.labelMap);
+        p.loadProgram(visitor.program);
+        p.Out(System.out);
+        p.Err(System.err);
+        //p.DEBUG = true;
+        while(!p.emulateCycle());
     }
 }

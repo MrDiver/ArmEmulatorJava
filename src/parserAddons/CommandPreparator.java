@@ -9,6 +9,8 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import parser.ArmParser;
 import parser.ArmParserBaseVisitor;
+
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,8 +19,10 @@ import static de.ARMv5Processor.instructions.Condition.AL;
 
 public class CommandPreparator extends ArmParserBaseVisitor {
     public List<Instruction> program;
+    public HashMap<String,Integer> labelMap;
     public CommandPreparator() {
         this.program = new LinkedList<>();
+        this.labelMap = new HashMap<>();
     }
 
     private <T> T specialVisit(ParserRuleContext ctx, T def)
@@ -73,7 +77,7 @@ public class CommandPreparator extends ArmParserBaseVisitor {
         int rn = (Integer) visit(ctx.reg());
         Condition cond = specialVisit(ctx.cond(),AL);
         ProcessorInstruction f = (ProcessorInstruction) visit(ctx.shifter_operand());
-        ProcessorRoutine mov = (p)->{
+        ProcessorRoutine cmp = (p)->{
             p.alu.updateFlags();
 
             int value = f.getValue(p);
@@ -87,7 +91,7 @@ public class CommandPreparator extends ArmParserBaseVisitor {
                 p.alu.calculate(XOR,p.rf.get(rn),value);
             }
         };
-        Instruction inst = new Instruction(cond,mov,toSL(ctx),ctx.getText());
+        Instruction inst = new Instruction(cond,cmp,toSL(ctx),ctx.getText());
         program.add(inst);
         return inst;
     }
@@ -99,7 +103,7 @@ public class CommandPreparator extends ArmParserBaseVisitor {
         int rn = (Integer) visit(ctx.reg(1));
         Condition cond = specialVisit(ctx.cond(),AL);
         ProcessorInstruction f = (ProcessorInstruction) visit(ctx.shifter_operand());
-        ProcessorRoutine mov = (p)->{
+        ProcessorRoutine arith = (p)->{
             if(updateFlags)
                 p.alu.updateFlags();
             int result = 0;
@@ -127,7 +131,43 @@ public class CommandPreparator extends ArmParserBaseVisitor {
             }
             p.rf.set(rd,result);
         };
-        Instruction inst = new Instruction(cond,mov,toSL(ctx),ctx.getText());
+        Instruction inst = new Instruction(cond,arith,toSL(ctx),ctx.getText());
+        program.add(inst);
+        return inst;
+    }
+
+    /*===================================================================================================================
+     |
+     |                                             BRANCH OPERATIONS
+     |
+     ====================================================================================================================*/
+
+    @Override
+    public Object visitBranchToLabel(ArmParser.BranchToLabelContext ctx) {
+        Condition cond = specialVisit(ctx.cond(),AL);
+        boolean link = is(ctx.BranchAndLink());
+        String label = ctx.labelReference().getText();
+        ProcessorRoutine branch = (p)->{
+            int n = p.labelMap.get(label);
+            if(link)
+                p.rf.LR(p.rf.PC());
+            p.rf.PC(n);
+        };
+        Instruction inst = new Instruction(cond,branch,toSL(ctx),ctx.getText());
+        program.add(inst);
+        return inst;
+    }
+
+    @Override
+    public Object visitBranchToRegister(ArmParser.BranchToRegisterContext ctx) {
+        Condition cond = specialVisit(ctx.cond(),AL);
+        int rm =(Integer) visit(ctx.reg());
+        ProcessorRoutine branch = (p)->{
+            int n = p.rf.get(rm);
+            System.err.println("no other instruction set implemented yet");
+            p.rf.PC(n);
+        };
+        Instruction inst = new Instruction(cond,branch,toSL(ctx),ctx.getText());
         program.add(inst);
         return inst;
     }
@@ -233,5 +273,14 @@ public class CommandPreparator extends ArmParserBaseVisitor {
         else
             n = -1;
         return n;
+    }
+
+
+    @Override
+    public Object visitLabel(ArmParser.LabelContext ctx) {
+        String label = ctx.LABEL().getText();
+        label = label.substring(0,label.length()-1);
+        labelMap.put(label,program.size());
+        return super.visitLabel(ctx);
     }
 }

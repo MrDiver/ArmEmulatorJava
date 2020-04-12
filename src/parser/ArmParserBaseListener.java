@@ -124,13 +124,25 @@ public class ArmParserBaseListener implements ArmParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBranch_instruction(ArmParser.Branch_instructionContext ctx) { }
+	@Override public void enterBranchToLabel(ArmParser.BranchToLabelContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBranch_instruction(ArmParser.Branch_instructionContext ctx) { }
+	@Override public void exitBranchToLabel(ArmParser.BranchToLabelContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBranchToRegister(ArmParser.BranchToRegisterContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBranchToRegister(ArmParser.BranchToRegisterContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

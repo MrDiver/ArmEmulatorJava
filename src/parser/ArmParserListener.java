@@ -98,15 +98,29 @@ public interface ArmParserListener extends ParseTreeListener {
 	 */
 	void exitImmediate(ArmParser.ImmediateContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ArmParser#branch_instruction}.
+	 * Enter a parse tree produced by the {@code branchToLabel}
+	 * labeled alternative in {@link ArmParser#branch_instruction}.
 	 * @param ctx the parse tree
 	 */
-	void enterBranch_instruction(ArmParser.Branch_instructionContext ctx);
+	void enterBranchToLabel(ArmParser.BranchToLabelContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ArmParser#branch_instruction}.
+	 * Exit a parse tree produced by the {@code branchToLabel}
+	 * labeled alternative in {@link ArmParser#branch_instruction}.
 	 * @param ctx the parse tree
 	 */
-	void exitBranch_instruction(ArmParser.Branch_instructionContext ctx);
+	void exitBranchToLabel(ArmParser.BranchToLabelContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code branchToRegister}
+	 * labeled alternative in {@link ArmParser#branch_instruction}.
+	 * @param ctx the parse tree
+	 */
+	void enterBranchToRegister(ArmParser.BranchToRegisterContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code branchToRegister}
+	 * labeled alternative in {@link ArmParser#branch_instruction}.
+	 * @param ctx the parse tree
+	 */
+	void exitBranchToRegister(ArmParser.BranchToRegisterContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code moveOp}
 	 * labeled alternative in {@link ArmParser#data_processing_instruction}.

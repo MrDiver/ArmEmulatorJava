@@ -65,11 +65,19 @@ public interface ArmParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitImmediate(ArmParser.ImmediateContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ArmParser#branch_instruction}.
+	 * Visit a parse tree produced by the {@code branchToLabel}
+	 * labeled alternative in {@link ArmParser#branch_instruction}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBranch_instruction(ArmParser.Branch_instructionContext ctx);
+	T visitBranchToLabel(ArmParser.BranchToLabelContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code branchToRegister}
+	 * labeled alternative in {@link ArmParser#branch_instruction}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBranchToRegister(ArmParser.BranchToRegisterContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code moveOp}
 	 * labeled alternative in {@link ArmParser#data_processing_instruction}.
