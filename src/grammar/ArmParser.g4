@@ -5,7 +5,7 @@ options { tokenVocab=ArmLexer; }
 //options{k=10;}
 compilationUnit: program EOF;
 
-program: (NEWLINE|BRANCHEND)* WS* statement WS* ((NEWLINE|BRANCHEND)+ WS* statement WS*)*;
+program: (NEWLINE|BRANCHEND)* WS* statement WS* ((NEWLINE|BRANCHEND)+ WS* statement (WS|NEWLINE|BRANCHEND)*)*;
 
 statement:  COMMENT | COMMENTM | instruction | label | label WS* instruction;
 
@@ -29,7 +29,12 @@ immediate : '#' (HEX|NUMBER);
 
    ==================================*/
 
-branch_instruction: opcode=(Branch|BranchAndLink|BLX|BX|BXJ) cond? COMEND WS* labelReference;
+//branch_instruction: opcode=(Branch|BranchAndLink|BLX) cond? COMEND WS* labelReference
+//                  | opcode=(BX|BLX|BXJ) cond? COMEND WS* reg
+//                  ;
+branch_instruction: opcode=(Branch|BranchAndLink) cond? COMEND WS* labelReference #branchToLabel
+                | opcode=BX cond? COMEND WS* reg                                  #branchToRegister
+                ;
 
 /* ==================================
 

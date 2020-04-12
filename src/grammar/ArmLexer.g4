@@ -36,7 +36,7 @@ STR : S T R -> pushMode(POSTCOM);
 Branch          : B     -> mode(BRANCHMODE), pushMode(POSTCOM);
 BranchAndLink   : B L   -> mode(BRANCHMODE), pushMode(POSTCOM);
 BLX             : B L X -> mode(BRANCHMODE), pushMode(POSTCOM);
-BX              : B X   -> mode(BRANCHMODE), pushMode(POSTCOM);
+BX              : B X   -> pushMode(POSTCOM);
 BXJ             : B X J -> mode(BRANCHMODE), pushMode(POSTCOM);
 
 // Shift operations
